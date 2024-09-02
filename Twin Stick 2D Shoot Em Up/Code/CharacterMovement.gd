@@ -8,7 +8,7 @@ extends CharacterBody2D
 @export var HASTE = 0
 @export var BASE_ATK_TIME = 0.8
 @export var ATK_TIME = 0.8
-@export var DAMAGE_TIME = 0.5
+@export var DAMAGE_TIME = 0.1
 @export var Bullet: PackedScene
 @onready var Camera = get_node("Camera2D")
 

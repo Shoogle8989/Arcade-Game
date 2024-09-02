@@ -14,6 +14,8 @@ var player
 # Used to increase the score (Spawners should be the child of a "scene" node)
 @export var score_value = 1
 
+var player_body
+
 var direction: Vector2
 
 func _ready():
@@ -35,11 +37,17 @@ func _process(delta):
 			self.velocity.y = direction.y * SPEED
 		
 	move_and_slide()
+	if player_body && player_body.get("die") != true:
+		player_body.Damage(damage)
 
 # Destroy the player
 func _on_area_detector_body_entered(body):
 	if body.name == player_name && body.get("die") != true:
-		body.Damage(damage)
+		player_body = body
+		
+func _on_area_detector_body_exited(body):
+	if body.name == player_name && body.get("die") != true:
+		player_body = null
 
 # Get hit, or die.
 func hit(damage):
