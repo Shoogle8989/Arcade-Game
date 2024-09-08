@@ -8,7 +8,7 @@ extends CharacterBody2D
 @export var HASTE = 0
 @export var BASE_ATK_TIME = 0.8
 @export var ATK_TIME = 0.8
-@export var DAMAGE_TIME = 0.1
+@export var DAMAGE_TIME = 0.5
 @export var Bullet: PackedScene
 @onready var Camera = get_node("Camera2D")
 
@@ -88,14 +88,15 @@ func Die():
 	$"../Retry".show()
 	
 func Damage(damage):
-	#get_node("Explosive").set_emitting(true)
-	#get_node("Explosive/Sound").play()
-	#self.get_node("MeshInstance2D").set("visible", false)
-	if timer >= DAMAGE_TIME:
-		timer = 0
+	if damage_timer >= DAMAGE_TIME:
+		damage_timer = 0
 		HP = HP - damage 
 		if HP <= 0:
 			Die()
+			return
+		get_node("Explosive2").set_emitting(true)
+		get_node("Explosive2/Sound").play()
+		
 	
 # Reload Scene
 func Respawn():
